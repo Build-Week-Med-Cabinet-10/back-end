@@ -1,13 +1,20 @@
 // Update with your config settings.
-const pgConnection = process.env.DATABASE_URL
+const pgConnection = process.env.DATABASE_URL || 'localhost'
 
 module.exports = {
   development: {
-    client: 'sqlite3',
+    client: 'postgresql',
     connection: {
-      filename: './data/users.sqlite3'
+      host: pgConnection,
+      port: 5433,
+      database: 'users',
+      user: 'postgres',
+      password: process.env.DATABASE_PW
     },
-    useNullAsDefault: true,
+    pool: {
+      min: 2,
+      max: 10
+    },
     migrations: {
       directory: './data/migrations'
     },

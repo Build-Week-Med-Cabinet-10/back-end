@@ -1,5 +1,6 @@
 // Update with your config settings.
-const pgConnection = process.env.DATABASE_URL || 'localhost'
+const databasePW = require("./config/databasepw")
+const pgConnection = process.env.DATABASE_URL
 
 module.exports = {
   development: {
@@ -9,7 +10,7 @@ module.exports = {
       port: 5433,
       database: 'users',
       user: 'postgres',
-      password: process.env.DATABASE_PW
+      password: databasePW
     },
     pool: {
       min: 2,

@@ -11,9 +11,7 @@ module.exports = {
 function add(user) {
     return db('users')
             .insert(user)
-            .then(() => {
-                return db('users').where({ email: user.email })
-            })
+            .then(() => user)
 }
 
 function findByEmail(email) {

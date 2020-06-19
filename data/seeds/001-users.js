@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const password = bcrypt.hashSync('secretword123', 8)
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('users').truncate()
+  return knex.raw('TRUNCATE TABLE users CASCADE')
     .then(function () {
       // Inserts seed entries
       return knex('users').insert([

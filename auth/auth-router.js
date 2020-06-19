@@ -13,8 +13,7 @@ router.post('/register', async (req, res) => {
     body.password = hash
     try {
       const user = await Auth.add(body)
-      const token = generateToken(user)
-      if (tokenAdded > 0) {
+      if (user) {
         return res.status(201).json({ username: user.username, email: user.email })  
       }
       res.status(400).json({ message: 'Error adding user' })

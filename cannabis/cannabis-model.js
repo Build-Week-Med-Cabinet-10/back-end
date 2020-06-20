@@ -2,7 +2,10 @@ const db = require('../data/dbconfig')
 
 module.exports = {
     getPreferrences,
-    find
+    find,
+    add,
+    addPreferrences,
+    checkIfInPreferrences
 }
 
 function getPreferrences(id) {
@@ -10,6 +13,17 @@ function getPreferrences(id) {
         .join('users_cannabis as uc', 'u.id', 'uc.user_id')
         .join('cannabis as c', 'uc.cannabis_id', 'c.id')
         .where('u.id', id)
+}
+
+function checkIfInPreferrences(id) {
+    return db('users as u')
+        .join('users_cannabis as uc', 'u.id', 'uc.user_id')
+        .join('cannabis as c', 'uc.cannabis_id', 'c.id')
+        .where('c.id', id) 
+}
+
+function addPreferrences(user_id, cananbis_id) {
+    return db('users_cannabis').insert({ user_id, cannabis_id })
 }
 
 function find(name) {

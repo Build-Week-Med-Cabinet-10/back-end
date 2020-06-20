@@ -1,7 +1,8 @@
 const db = require('../data/dbconfig')
 
 module.exports = {
-    getPreferrences
+    getPreferrences,
+    find
 }
 
 function getPreferrences(id) {
@@ -11,6 +12,13 @@ function getPreferrences(id) {
         .where('u.id', id)
 }
 
+function find(name) {
+    return db('cannabis').where({ name })
+}
+
+function add(cannabis) {
+    return db('cannabis').insert(cannabis)
+}
 // function add(cannabis, id) {
 //     return db('cannabis').insert(cannabis)
 //         .then(() => {

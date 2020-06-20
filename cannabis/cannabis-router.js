@@ -8,7 +8,6 @@ const router = express.Router()
 
 router.get('/', authenticate, async (req, res) => {
     const { id } = req.decodedJWT
-    console.log(id)
     try {
         const results = await Cannabis.getPreferrences(id)
         console.log(results)

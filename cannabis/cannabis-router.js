@@ -20,22 +20,26 @@ router.get('/', authenticate, async (req, res) => {
 router.post('/', authenticate, async (req, res) => {
     const body = req.body
     const user = req.decodedJWT
+
     try {
-        const found = await Cannabis.find(body.name).first()
-        if (found > 0) {
+        const found = await Cannabis.find(body.strain).first()
+        if (found) {
             const inPref = await Cannabis.checkIfInPreferrences(found.id)
+            
             if (inPref) {
-                return res.status(400).json({ message: `User already added ${found.name} in preferrences` })
+                return res.status(400).json({ message: `User already added ${found.strain} in preferrences` })
             }
             const result = await Cannabis.addPreferrences(user.id, found.id)
+            
             if (result) { 
-                return res.status(200).json({ message: `${found.name} successfully added to pref`})
+                return res.status(200).json({ message: `${found.strain} successfully added to pref`})
             }
         } else {
-            await Cannabis.add(body)
-            const result = await Cannabis.addPreferrences(user.id, found.id)
+            const cannabis_id = await Cannabis.add(body)
+            const result = await Cannabis.addPreferrences(user.id, cannabis_id[0])
+            console.log()
             if (result) {
-                return res.status(200).json({ message: `${found.name} successfully added to pref`})}
+                return res.status(200).json({ message: `${body.strain} successfully added to pref`})}
             }
         res.status(400).json({ message: 'Error adding data' })
     } catch(e) {

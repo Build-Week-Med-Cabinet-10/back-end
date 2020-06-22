@@ -22,21 +22,16 @@ function checkIfInPreferrences(id) {
         .where('c.id', id) 
 }
 
-function addPreferrences(user_id, cananbis_id) {
+function addPreferrences(user_id, cannabis_id) {
     return db('users_cannabis').insert({ user_id, cannabis_id })
 }
 
-function find(name) {
-    return db('cannabis').where({ name })
+function find(strain) {
+    return db('cannabis').where({ strain })
 }
 
 function add(cannabis) {
-    return db('cannabis').insert(cannabis)
+    return db('cannabis').insert(cannabis).returning('id')
 }
-// function add(cannabis, id) {
-//     return db('cannabis').insert(cannabis)
-//         .then(() => {
-//             return db('users_cannabis').insert({ user_id: id, cannabis_id: })
-//         } )
-// }
+
 

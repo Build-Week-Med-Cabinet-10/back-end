@@ -13,6 +13,7 @@ function getPreferrences(id) {
         .join('users_cannabis as uc', 'u.id', 'uc.user_id')
         .join('cannabis as c', 'uc.cannabis_id', 'c.id')
         .where('u.id', id)
+        .select('c.id','c.strain', 'c.type', 'c.effect', 'c.flavor', 'c.description')
 }
 
 function checkIfInPreferrences(id) {

@@ -5,7 +5,8 @@ module.exports = {
     find,
     add,
     addPreferrences,
-    checkIfInPreferrences
+    checkIfInPreferrences,
+    remove
 }
 
 function getPreferrences(id) {
@@ -35,4 +36,7 @@ function add(cannabis) {
     return db('cannabis').insert(cannabis).returning('id')
 }
 
+function remove(cannabis_id, user_id) {
+    return db('users_cannabis').where({ cannabis_id, user_id  }).delete()
+}
 

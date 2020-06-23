@@ -27,12 +27,12 @@ router.post('/', authenticate, async (req, res) => {
             const inPref = await Cannabis.checkIfInPreferrences(found.id)
             
             if (inPref) {
-                return res.status(400).json({ message: `User already added ${found.strain} in preferrences` })
+                return res.status(400).json({ message: `User already added ${body.strain} in preferrences` })
             }
             const result = await Cannabis.addPreferrences(user.id, found.id)
             
             if (result) { 
-                return res.status(200).json({ message: `${found.strain} successfully added to pref`})
+                return res.status(200).json({ message: `${body.strain} successfully added to pref`})
             }
         } else {
             const cannabis_id = await Cannabis.add(body)

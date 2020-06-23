@@ -1,5 +1,5 @@
 // Update with your config settings.
-const databasePW = require("./config/databasepw")
+// const databasePW = require("./config/databasepw")
 const pgConnection = process.env.DATABASE_URL
 
 module.exports = {

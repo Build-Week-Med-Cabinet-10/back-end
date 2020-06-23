@@ -11,3 +11,4 @@ Below is a table with the API urls. Concat it to the host URL and include the re
 | POST | api/auth/logout  |   |  | yes |
 | POST | api/auth/cannabis  | strain, type, effect, flavor, description  | id, strain, type, effect, flavor, description | yes |
 | GET | api/auth/cannabis  |   | Array of { id, strain, type, effect, flavor, description } | yes |
+| DELETE | api/auth/cannabis/:cannabis_id  |   |  | yes |

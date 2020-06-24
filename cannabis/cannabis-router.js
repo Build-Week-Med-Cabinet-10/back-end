@@ -28,16 +28,19 @@ router.post('/', authenticate, async (req, res) => {
             if (inPref) {
                 return res.status(400).json({ message: `User already added ${body.strain} in preferrences` })
             }
-            const result = await Cannabis.addPreferrences(user.id, found.id)
-            if (result) { 
-                return res.status(200).json({ message: `${body.strain} successfully added to pref`})
+            const added = await Cannabis.addPreferrences(user.id, found.id)
+            if (added) { 
+                const results = await Cannabis.getPreferrences(user.id)
+                return res.status(200).json(results)
             }
         } else {
             const cannabis_id = await Cannabis.add(body)
-            const result = await Cannabis.addPreferrences(user.id, cannabis_id[0])
-            if (result) {
-                return res.status(200).json({ message: `${body.strain} successfully added to pref`})}
+            const added = await Cannabis.addPreferrences(user.id, cannabis_id[0])
+            if (added) {
+                const results = await Cannabis.getPreferrences(user.id)
+                return res.status(200).json(results)
             }
+        }
         res.status(400).json({ message: 'Error adding data' })
     } catch(e) {
         res.status(500).json({ message: 'request error' })
@@ -49,7 +52,10 @@ router.delete('/:id', authenticate, async (req, res) => {
     const user_id = req.decodedJWT.id
     try {
         const removed = await Cannabis.remove(cannabis_id, user_id)
-        if (removed > 0) { return res.status(200).json({ message: 'Preferrence removed successfully' })}
+        if (removed > 0) { 
+            const results = await Cannabis.getPreferrences(user_id)
+            return res.status(200).json(results)
+        }
         res.status(404).json({ message: 'Preferrence not found in DB' })
     } catch(e) {
         res.status(500).json({ message: 'request error' })

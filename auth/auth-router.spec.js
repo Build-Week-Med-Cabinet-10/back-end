@@ -15,7 +15,7 @@ let token
 
 describe('auth-router.js', () => {
     describe('POST /api/auth/register', () => {
-       it('should return status code 200', async () => {
+       it('should return status code 201', async () => {
             const res = await request(server).post('/api/auth/register').send(testUser)
             expect(res.status).toBe(201)
        })
@@ -35,6 +35,7 @@ describe('auth-router.js', () => {
             expect(res.status).toBe(401)
         })
     })
+
     beforeAll(async () => {
         await db('users').truncate()
         const hash = bcrypt.hashSync("secretword123", 8)
@@ -42,9 +43,11 @@ describe('auth-router.js', () => {
         const user = await Auth.findByEmail("thom27@yahoo.com").first()
         token = generateToken(user)
     })
+
     afterAll(async () => {
         await db('users').truncate()
     })
+
     function generateToken(user) {
         const payload = {
             id: user.id,

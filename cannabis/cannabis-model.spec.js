@@ -27,8 +27,12 @@ describe('cananbis-model.js', () => {
         const result = await Cannabis.addPreferrences(2, 2)
         expect(result[0]).toBe(2)
     })
-    it('should add preferrence and return id users_cannabis', async () => {
+    it('should add preferrence and return a list of it', async () => {
         const result = await Cannabis.checkIfInPreferrences(1)
+        expect(result.length > 0).toBe(true)
+    })
+    it('should get preferrenes and return a list of it', async () => {
+        const result = await Cannabis.getPreferrences(1)
         expect(result.length > 0).toBe(true)
     })
 

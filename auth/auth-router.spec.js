@@ -36,12 +36,24 @@ describe('auth-router.js', () => {
         })
     })
 
-    beforeAll(async () => {
+    describe('POST /api/auth/logout', () => {
+        it('should return status code 200', async () => {
+            const res = await request(server).post('/api/auth/logout').set({'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json'})
+            expect(res.status).toBe(200)
+        })
+        it('should return status code 401', async () => {
+            const res = await request(server).post('/api/auth/logout').set({'Authorization': `Bearer wrongToken`, 'Content-Type': 'application/json'})
+            expect(res.status).toBe(401)
+        })
+    })
+
+    beforeEach(async () => {
         await db('users').truncate()
         const hash = bcrypt.hashSync("secretword123", 8)
         await Auth.add({ username: "thom27", email: "thom27@yahoo.com", password: hash })
         const user = await Auth.findByEmail("thom27@yahoo.com").first()
         token = generateToken(user)
+        await Auth.addToken(user.id, token)
     })
 
     afterAll(async () => {

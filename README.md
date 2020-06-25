@@ -9,6 +9,6 @@ Below is a table with the API urls. Concat it to the host URL and include the re
 | POST | api/auth/register  | username, email, password  | username, email | no |
 | POST | api/auth/login  | email, password  | username, email, token | no |
 | POST | api/auth/logout  |   |  | yes |
-| POST | api/cannabis  | strain, type, effect, flavor, description  | Array of { id, strain, type, effect, flavor, description } | yes |
-| GET | api/cannabis  |   | Array of { id, strain, type, effect, flavor, description } | yes |
+| POST | api/cannabis/  | strain, type, effect, flavor, description  | Array of { id, strain, type, effect, flavor, description } | yes |
+| GET | api/cannabis/  |   | Array of { id, strain, type, effect, flavor, description } | yes |
 | DELETE | api/cannabis/:cannabis_id  |   | Array of { id, strain, type, effect, flavor, description } | yes |

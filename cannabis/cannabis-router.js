@@ -25,7 +25,6 @@ router.post('/', authenticate, async (req, res) => {
         const found = await Cannabis.find(body.strain).first()
         if (found) {
             const inPref = await Cannabis.checkIfInPreferrences(found.id)
-            console.log(inPref)
             if (inPref.length > 0) {
                 return res.status(400).json({ message: `User already added ${body.strain} in preferrences` })
             }
